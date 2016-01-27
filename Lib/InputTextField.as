@@ -47,6 +47,15 @@
             addChild( inputField );
              
         }
+
+        /*Changes text in this text field to input String
+        */
+        public function changeText( txt:String ): void
+        {
+             
+            inputField.text = txt;
+             
+        }
 		
 		/*Returns the integer currently entered in text field.
 		*/
