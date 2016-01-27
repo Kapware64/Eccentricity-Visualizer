@@ -105,7 +105,93 @@
 			focus.addEventListener( MouseEvent.MOUSE_DOWN, focusClickDown );
 			focus.addEventListener( MouseEvent.MOUSE_UP, focusClickUp );
 			stage.addEventListener( MouseEvent.MOUSE_MOVE, focusClickMove );
+			stage.addEventListener( Event.ENTER_FRAME, update );
 
+		}
+
+		/*Function to update [locus] if user has changed input eccentricity or [beingMoved] == true or [animate] == true
+		*/
+		private function update( event:Event ): void
+		{
+			
+			animate = player.getAnim();
+			
+			//user has changed input eccentricity or [locus] is being moved or the user has selected the eccentricity to be animated
+			if( eccentricity != inputEcc.retriNum() || beingMoved || animate )
+			{
+				var curRadius:Number;		//current pixel radius of circle drawn with [locus] at center to calculate points on that circle that would be valid points in [locus]
+				var distance:Number;		//pixel distance from directrix a point on the circle with center at [locus] and radius [curRadius] would have to be to be a valid point in [locus]
+				var len:Number;				//pixel distance between directrix and focus
+				
+				//user has selected eccentricity to be animated
+				if( animate )																				
+				{
+					//animate [eccentricity]
+					if( eccentricity >= inputEUB.retriNum() )												
+					{
+						eIncrement = -0.05;
+					}
+					else if( eccentricity <= inputELB.retriNum() )
+					{
+						eIncrement = 0.05;
+					}
+					eccentricity += eIncrement;
+					inputEcc.changeText( "" + eccentricity.toFixed( 2 ) );
+				}
+				//user has not selected eccentricity to be animated
+				else																						
+				{
+					eccentricity = inputEcc.retriNum();
+				}
+								
+				//clear [locus] if necessary																			
+				if( locus.numChildren > 0 )																	
+				{
+					locus.removeChildren( 0, locus.numChildren - 1 );
+				}
+														
+				//for-loop adding points to [locus] in each iteration													
+				for( curRadius = 1; curRadius < 400; curRadius += 0.4 )
+				{
+					var p1:Sprite = new Sprite();		//point to be added to [locus]
+					var p2:Sprite = new Sprite();		//point to be added to [locus]
+					var ratio:Number;					//Opposite side pixel length over hypotenuse pixel length of right triangle produced by [directrix], [focus], and a current
+														//    valid point on [locus] in this loop iteration
+					
+					//initialize [p1] and [p2]
+					p1.graphics.beginFill( 0x888888 );														
+					p1.graphics.drawCircle( 0, 0, 5 );
+					p1.graphics.endFill();
+					p2.graphics.beginFill( 0x888888 );														
+					p2.graphics.drawCircle( 0, 0, 5 );
+					p2.graphics.endFill();
+					
+					distance = curRadius / eccentricity;
+					len = Math.abs( directrix.y - focus.y );
+					ratio = ( distance - len ) / curRadius;
+					if( directrix.y > focus.y )
+					{
+						ratio = ratio * -1;
+					}
+					
+					//[ratio] is produced from a valid angle
+					if( Math.abs( ratio ) <= 1 )															
+					{
+						//correctly place and add [p1] to [locus]
+						p1.x = focus.x + curRadius * Math.cos( Math.asin( ratio ) );						
+						p1.y = focus.y + curRadius * ratio;
+						locus.addChild( p1 );
+						
+						//correctly place and add [p2] to [locus]
+						p2.x = focus.x + curRadius * Math.cos( PI - Math.asin( ratio ) );
+						p2.y = focus.y + curRadius * ratio;
+						locus.addChild( p2 );
+					}
+				}
+			}
+			
+			beingMoved = false;
+			
 		}
 
 		/*Function to execute when a mouse down action occurs on [focus] to update [beingClicked]
