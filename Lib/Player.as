@@ -1,4 +1,4 @@
-﻿﻿package Libs 
+﻿﻿package Lib
 {
     import flash.events.MouseEvent;
     import flash.display.Sprite;
