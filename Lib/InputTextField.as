@@ -10,14 +10,16 @@
 	import flash.display.Shape;
 	
 	public class InputTextField extends Sprite 
-	//Class to model an input text field
+	//Class to model an input text field which can only take in numbers.
 	{
 		
 		private var inputField:TextField = new TextField();
 		private var font1:Font2 = new Font2();
 		private var myFormat:TextFormat = new TextFormat();
 		
-		public function Create( w:int, h:int, size:int )
+		/*Initializes this input text field with an input width, height, and font size.
+		*/
+		public function init( w:int, h:int, size:int )
 		{
 			
 			var rectangle:Shape = new Shape();
@@ -44,6 +46,8 @@
 			
 		}
 		
+		/*Returns the integer currently entered in text field.
+		*/
 		public function retriNum(): int 
 		{
 			

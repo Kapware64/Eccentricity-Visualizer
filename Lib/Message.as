@@ -9,7 +9,7 @@
 	import flash.text.Font;
 	
 	public class Message extends Sprite 
-	//Class to model a text message
+	//Class to model a box of text
 	{
 		
 		var txt:TextField = new TextField();
@@ -21,18 +21,19 @@
 		
 		var wP:int;
 		var hP:int;
-		var sizeP:int;
 		var inTextP:String;
 		var colP:Number;
 		var fontP:int;
 		var centerAP:Boolean;
 		
-		public function Create( w:int, h:int, size:int, inText:String, col:Number, font:int, centerA:Boolean )
+		/*Initializes this box of text with an input width, height, font size, initial text, number of columns,
+		font selection (font 1 or 2), and whether text is aligned center (true) or left (false)
+		*/
+		public function init( w:int, h:int, size:int, inText:String, col:Number, font:int, centerA:Boolean )
 		{
 			
 			wP = w;
 			hP = h;
-			sizeP = size;
 			inTextP = inText;
 			colP = col;
 			fontP = font;
@@ -81,6 +82,8 @@
 			
 		}
 		
+		/*Changes text in this text box
+		*/
 		public function changeText( s:String ): void
 		{
 			
@@ -88,6 +91,8 @@
 			
 		}
 		
+		/*Changes font size of text in this text box
+		*/
 		public function changeSize( s:int ): void
 		{
 			
@@ -97,6 +102,8 @@
 			
 		}
 		
+		/*Changes color of this text box
+		*/
 		public function changeColor( c:Number ): void
 		{
 			
@@ -106,6 +113,8 @@
 			
 		}
 		
+		/*Chnages formatting of this text box back to default
+		*/
 		public function changeDefault(): void
 		{
 			
@@ -127,6 +136,8 @@
 			
 		}
 		
+		/*Returns text in text box
+		*/
 		public function retText(): String
 		{
 			
@@ -134,6 +145,8 @@
 			
 		}
 		
+		/*Gets format of text in this text box
+		*/
 		public function getFormat(): TextFormat
 		{
 			
