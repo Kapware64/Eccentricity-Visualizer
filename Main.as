@@ -1,7 +1,9 @@
 ﻿package 
 {
 
-	import flash.display.Sprite
+	import flash.display.Sprite;
+	import flash.events.MouseEvent;
+	import flash.events.Event;
 
 	import Lib.*;
 	
@@ -99,6 +101,46 @@
 			addChild( locus );
 			setChildIndex( locus, 0 );
 
+			//add event listeners to [focus] and the stage
+			focus.addEventListener( MouseEvent.MOUSE_DOWN, focusClickDown );
+			focus.addEventListener( MouseEvent.MOUSE_UP, focusClickUp );
+			stage.addEventListener( MouseEvent.MOUSE_MOVE, focusClickMove );
+
+		}
+
+		/*Function to execute when a mouse down action occurs on [focus] to update [beingClicked]
+		*/
+		private function focusClickDown( event:MouseEvent ): void
+		{
+			
+			beingClicked = true;
+			
+		}
+		
+		/*Function to execute when a mouse up action occurs on [focus] to update [beingClicked]
+		*/
+		private function focusClickUp( event:MouseEvent ): void
+		{
+			
+			beingClicked = false;
+			
+		}
+		
+		/*Function to execute when a mouse moving action occurs on [focus] to make [focus] follow mouse if [beingClicked] == true and also update [beingMoved]
+		*/
+		private function focusClickMove( event:MouseEvent ): void
+		{
+			
+			/*Make focus follow mouse if it is being clicked
+			*/
+			if( beingClicked )
+			{
+				focus.x = mouseX;
+				focus.y = mouseY;
+				
+				beingMoved = true;
+			}
+			
 		}
 
 	}
