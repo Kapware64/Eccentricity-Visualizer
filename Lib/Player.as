@@ -11,8 +11,10 @@
         private var playBtn:Play = new Play();
         private var stopBtn:Stop = new Stop();
         private var rect:Sprite = new Sprite();
-     
-        public function Player()
+        
+        /*Initializes this pause/play button
+        */
+        public function init()
         {
              
             playBtn.x -= playBtn.width / 2;
@@ -37,6 +39,8 @@
              
         }
          
+        /*Event listener for mouse hovering over this pause/play button
+        */
         private function mOver( event:MouseEvent ): void
         {
              
@@ -51,6 +55,8 @@
              
         }
          
+        /*Event listener for mouse exiting pause/play button
+        */
         private function mOut( event:MouseEvent ): void
         {
              
@@ -65,6 +71,8 @@
              
         }
          
+        /*Event listener for mouse clicking pause/play button
+        */
         private function mClick( event:MouseEvent ): void
         {
              
@@ -81,6 +89,8 @@
              
         }
          
+        /*Returns whether this pause/play button is in play mode (true) or pause mode (false)
+        */
         public function getAnim(): Boolean
         {
              
