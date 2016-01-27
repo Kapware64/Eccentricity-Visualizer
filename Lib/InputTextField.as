@@ -57,14 +57,14 @@
              
         }
 		
-		/*Returns the integer currently entered in text field.
+		/*Returns the number currently entered in text field.
 		*/
-		public function retriNum(): int 
+		public function retriNum(): Number
 		{
 			
 			if( inputField.text != null )
 			{
-				return int( inputField.text );
+				return Number( inputField.text );
 			}
 			else
 			{
